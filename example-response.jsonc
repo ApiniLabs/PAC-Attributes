@@ -1,0 +1,173 @@
+{
+    "schema_version": "1.0",
+    "responses": [
+        {
+            "pac_url": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/12346/EXAMPLE",
+            "response_from": "2025-07-21T10:05:58.493467",
+            "attribute_groups": [
+                {
+                    "key": "ProductionData",
+                    "attributes": [
+                        {
+                            "key": "MfgDate",
+                            "value": "2015-10-05T10:12:00",
+                            "valid_until": "forever",
+                            "type": "datetime"
+                        },
+                        {
+                            "key": "MaxWeight",
+                            "value": "100.00",
+                            "type": "numeric",
+                            "unit": "GRM"
+                        }
+                    ]
+                },
+                {
+                    "key": "Maintenance",
+                    "attributes": [
+                        {
+                            "key": "CalWeight",
+                            "value": "HTTPS://PAC.METTORIUS.COM/-MD/CALWEIGH/A00002",
+                            "type": "reference"
+                        },
+                        {
+                            "key": "CalDate",
+                            "value": "2025-07-20T00:00:00",
+                            "valid_until": "2025-08-20T00:00:00",
+                            "type": "datetime"
+                        },
+                        {
+                            "key": "DailyCheckResult",
+                            "value": "OK",
+                            "valid_until": "2025-07-20T00:00:00",
+                            "observed_at": "2025-07-20T00:00:00",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "key": "Random",
+                    "attributes": [
+                        {
+                            "key": "Foo",
+                            "value": "aNaE4aZvav",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Foo",
+                            "value": "lxx8ieK3go",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Bar",
+                            "value": "6yf1Ti0L0Z",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "key": "PACAnalyzer",
+                    "attributes": [
+                        {
+                            "key": "IsPAC-CAT",
+                            "value": "This PAC-ID follows the PAC-CAT spezifications.",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Category",
+                            "value": "Material_Device",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "pac_url": "HTTPS://PAC.METTORIUS.COM/-MD/CALWEIGH/A00002",
+            "response_from": "2025-07-21T10:05:58.493467",
+            "attribute_groups": [
+                {
+                    "key": "MetaData",
+                    "attributes": [
+                        {
+                            "key": "DisplayName",
+                            "value": "Calibration Weight PRN003",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "key": "ProductionData",
+                    "attributes": [
+                        {
+                            "key": "NominalWeight",
+                            "value": "50.0",
+                            "valid_until": "forever",
+                            "type": "numeric",
+                            "unit": "GRM"
+                        }
+                    ]
+                },
+                {
+                    "key": "Random",
+                    "attributes": [
+                        {
+                            "key": "Deadmeat",
+                            "value": "lWD8Eoz6tc",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Deadmeat",
+                            "value": "MJUIP2Z6c1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Deadmeat",
+                            "value": "FMzHcflGsY",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "key": "PACAnalyzer",
+                    "attributes": [
+                        {
+                            "key": "IsPAC-CAT",
+                            "value": "This PAC-ID follows the PAC-CAT spezifications.",
+                            "type": "text"
+                        },
+                        {
+                            "key": "Category",
+                            "value": "Material_Device",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "translations": [
+        {
+            "key": "MfgDate",
+            "translations": {
+                "en": "Manufactoring date",
+                "en-US": "Manufactoring date",
+                "fr": "Date de fabrication"
+            }
+        },
+        {
+            "key": "CalWeight",
+            "translations": {
+                "en": "Calibration weight",
+                "fr": "Poids calibration"
+            }
+        },
+        {
+            "key": "MaxWeight",
+            "translations": {
+                "en": "Maximum weight",
+                "fr": "Poids maximal"
+            }
+        }
+    ]
+}
