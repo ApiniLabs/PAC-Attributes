@@ -222,7 +222,7 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | :-- | :-- |
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
-| numeric   | json object with fields:<br>- `magnitude` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values. |
+| numeric   | json object with fields:<br>- `magnitude` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
 | text     | Any Unicode string. SHOULD NOT span multiple lines.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
 | object    | Any json object. **Only use as a last resort** |
@@ -242,6 +242,10 @@ TODO: Welche Timestamps soll es geben?
 | `valid_until` | ISO 8601 UTC timestamp until which the data may be cached. If absent, treat as **not cacheable**. |
 `observed_at` | e.g. test date, analysis date
 </div>
+
+
+#### Authentication
+`Attribute Servers` MAY require authentication via standard HTTP authentication mechanisms, such as those defined in RFC 7235, OAuth 2.0 (RFC 6749), or OpenID Connect.
 
 
 #### Error Conditions
@@ -282,6 +286,9 @@ If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Ser
 > **<span style="color:blue"> ℹ️️ </span>**: It is not the intention to request attributes from other `Attribute Servers`
 
 
+
+
+
 ### Server Capabilities
 
 <div style="color:red">Discuss:
@@ -304,11 +311,6 @@ To facilitate configuration of `PAC-ID Resolver``Attribute Servers` SHOULD publi
         "mettorius.com/keys/Example",
         "mettorius.com/keys/AnotherGroup"
   ],
-
-    "guarantees": {
-        "using_ucum_units" 
-        "quality" 
-    }
 
   "auth": {
     "auth_type": "bearer",
@@ -348,6 +350,7 @@ labfreed.org | https://labfreed.com/terms/boiling-point
 your domain | https://mettorius.com/terms/melting-point | CAN be an active endpoint. If so it is suggested to display a definition and translations.
 
 Here is a list of [recommended keys](well_known_keys.md) for common scenarios. 
+<span style="color:red">Should we merge this with the list from PAC-ID
 
 
 ### Grouping of Attributes
