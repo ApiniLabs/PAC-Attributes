@@ -1,3 +1,8 @@
+> [!NOTE]
+> This page contains a ChatGPT generated list of sources for keys
+> We need to revew it and decide which to mention in README
+
+
 Chemistry-Specific Terminology
 | Source | Description    |Checked |Recommended | 
 |:---|:---|---|---|
