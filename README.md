@@ -315,7 +315,6 @@ your domain | <https://mettorius.com/terms/melting-point> | CAN be an active end
 
 
 Here is a list of [recommended keys](well_known_keys.md) for common scenarios.
-<span style="color:red">Should we merge this with the list from PAC-ID
 
 ### Validity Duration of Attributes
 
