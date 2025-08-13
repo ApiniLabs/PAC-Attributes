@@ -47,10 +47,10 @@ Attributes are retrieved from the `Attribute Server` by a HTTP **POST** request 
 
 Field | Description
 :--- | :---
-`pac_ids` | A list of PAC-ID, serialized as urls. <br>`PAC-ID`s MUST be valid and MAY contain extensions. <br> MUST NOT exceeding 100 items.
+`pac_ids` | A list of PAC-ID, serialized as urls. <br>Each `PAC-ID` MUST be valid and MAY contain extensions. <br> MUST NOT exceeding 100 items.
 `restrict_to_attribute_groups` <br> (optional) | A list of `attribute group` keys. Instructs the server to only return these attribute groups. <br> If omitted, the server MUST return all available attribute groups.
 `language_preferences` <br> (optional) | A list of languages with decreasing preference. <br> Entries MUST be ISO 639-1 language codes (e.g. "en" or "de"). The server MUST return the first language it can. <br>If omitted the server MUST return it's default language. (see [internationalization](#internationalization))
-`suppress_forward_lookup` <br> (optional)| Instructs the server to not include attributes of `PAC-ID` which are referenced in attributes of the requested `PAC-ID` (see [avoid round trips](#avoid-round-trips)). <br>If omitted the server MUST treat it as false and include attributes of references `PAC-ID`s.
+`suppress_forward_lookup` <br> (optional)| Instructs the server to not include attributes of `PAC-ID` which are attributes of type 'reference' of the requested `PAC-ID` (see [avoid round trips](#avoid-round-trips)). <br>If omitted the server MUST treat it as false and include attributes of references `PAC-ID`s.
 
 ### Response
 
