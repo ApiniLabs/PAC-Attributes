@@ -2,14 +2,14 @@
 
 ## In a Nutshell
 
-PAC-ID Attributes standardizes a generic, vendor-neutral interface for retrieving metadata about an item identified with a PAC-ID.
+`PAC-ID Attributes` standardizes a generic, vendor-neutral web service interface for retrieving metadata about an item identified with a PAC-ID.
 With this mechanism, software-systems dealing with `PAC-ID`s can show metadata (e.g. boiling point of a substance) to the user, without implementing vendor specific protocols. Attributes might also be used programmatically (e.g. loading an instrument method based on a boiling point)
 
 ## Introduction
 
 `PAC-ID`s expose only minimal human-readable information (issuer, category, item ID). However, user-facing applications require additional metadata—such as a display name or physical properties. Embedding such data in the `PAC-ID` is undesirable due to size, internationalization complexity and mutability issues.
 
-While issuers may offer proprietary APIs to fetch this data, these are not usable generically. PAC-ID Attributes defines a neutral, standardized interface for retrieving item metadata, decoupling data consumers from provider-specific implementations.
+To address this, `PAC-ID Attributes` defines a neutral, standardized web service interface for retrieving item metadata. This approach decouples data consumers from provider-specific implementations, enabling consistent, interoperable access regardless of the underlying issuer. While issuers may still offer proprietary APIs, the standardized web service provides a common, vendor-neutral mechanism usable across systems.
 
 ## Terminology
 
@@ -18,13 +18,16 @@ Term | Description
 `Attribute Server` | A server which published attributes according to this specification
 `Attribute Client` | Any application which requests attributes from an `Attribute Server`.
 
+# Endpoint Discovery
+
+Attribute Services are found via the `PAC-ID Resolver` configuration. Entries with `attributes-generic` in the 'service-type' field are attribute services.
+
 ## Specification
 
 ### Endpoint
 
-Attribute Services are found via the `PAC-ID Resolver` configuration. Entries with `attributes-generic` in the 'service-type' field are attribute services.
-
-It is RECOMMENDED to use the term 'attributes' in the url of the attribute server, e.g. `https://attributes.mettorius.com.` or `https://www.mettorius.com/attributes` .
+There is only one endpoint for the `PAC-ID Attributes` web service.
+It is RECOMMENDED to host the attribute server at `pac.<issuer domain name>/attributes` (e.g. `pac.mettorius.com/attributes`)
 
 ### Request
 
@@ -49,7 +52,7 @@ Field | Description
 :--- | :---
 `pac_ids` | A list of PAC-ID, serialized as urls. <br>Each `PAC-ID` MUST be valid and MAY contain extensions. <br> MUST NOT exceeding 100 items.
 `restrict_to_attribute_groups` <br> (optional) | A list of `attribute group` keys. Instructs the server to only return these attribute groups. <br> If omitted, the server MUST return all available attribute groups.
-`language_preferences` <br> (optional) | A list of languages with decreasing preference. <br> Entries MUST be ISO 639-1 language codes (e.g. "en" or "de"). The server MUST return the first language it can. <br>If omitted the server MUST return it's default language. (see [internationalization](#internationalization))
+`language_preferences` <br> (optional) | A list of languages with decreasing preference. <br> Entries MUST be ISO 639-1 language codes (e.g. "en" or "de"). The server MUST return the first language it can. If the server does not support any of languages in `language_preferences` it MUST return its default language.<br> If omitted the server MUST return its default language. (see [internationalization](#internationalization))
 `suppress_forward_lookup` <br> (optional)| Instructs the server to not include attributes of `PAC-ID` which are attributes of type 'reference' of the requested `PAC-ID` (see [avoid round trips](#avoid-round-trips)). <br>If omitted the server MUST treat it as false and include attributes of references `PAC-ID`s.
 
 ### Response
@@ -245,9 +248,11 @@ TODO: Welche Timestamps soll es geben?
 
 `Attribute Servers` MAY require authentication via standard HTTP authentication mechanisms, such as those defined in RFC 7235, OAuth 2.0 (RFC 6749), or OpenID Connect.
 
-#### Error Conditions
+#### Response Status
 
-The attribute service MUST return `HTTP 400 Bad Request` if the request is invalid, with a plain text description of the error.
+The Attribute Server MUST follow standard HTTP status codes, except that 404 (Not Found) is generally not used.
+
+The `Attribute Server` MUST return `HTTP 400 Bad Request` if the request is invalid, with a plain text description of the error.
 
 If no attributes are found for a requested `PAC-ID` the server MUST return a response where the `responses` field does not include an entry for this `PAC-ID`.
 > [!NOTE]
@@ -291,17 +296,13 @@ If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Ser
 
 ## Best Practices
 
-### Caching of Attributes
+### `Attribute Server`
 
-Usability can be greatly improved if values are cached, making applications much faster.
-Attribute services SHOULD provide information about the validity duration (`valid_until`) of attributes.
-Clients MAY use this information to cache data (it is best practice but optional).
-
-### Choice of Keys
+#### Choice of Keys
 
 Keys of `attribute groups` and `attributes` SHOULD  refer to a definition in an well-known source or to your own domain:
 
-Source | Example Key | Comment
+Source | Example | Comment
 :--|:--|:--
 schema.org | <https://schema.org/location> |
 [GS1 Application identifier](https://ref.gs1.org/ai) | <https://ref.gs1.org/ai/17> |
@@ -309,8 +310,18 @@ schema.org | <https://schema.org/location> |
 labfreed.org | <https://labfreed.com/terms/boiling-point>
 your domain | <https://mettorius.com/terms/melting-point> | CAN be an active endpoint. If so it is suggested to display a definition and translations.
 
+
+
+
+
 Here is a list of [recommended keys](well_known_keys.md) for common scenarios.
 <span style="color:red">Should we merge this with the list from PAC-ID
+
+### Validity Duration of Attributes
+
+Usability can be greatly improved if values are cached by the 'Attribute Client', making applications much faster.
+Attribute services SHOULD thus provide information about the validity duration (`valid_until`) of attributes.
+
 
 ### Grouping of Attributes
 
@@ -319,6 +330,14 @@ Attributes SHOULD be grouped with these guidelines in mind:
 - if an 'Attribute Client' shows `attribute groups` and their attributes the ordering should make sense to a user
 - 'Attribute Client' should be able to selectively show only a subset of `attribute groups`
 - Facilitate caching by grouping attributes with similar validity (e.g. valid forever and fast paced).
+
+
+### `Attribute Client`
+
+#### Caching of Attributes
+
+Usability can be greatly improved if values are cached, making applications much faster.
+Clients MAY use the validity duration (`valid_until`) of attributes to cache data (it is best practice but optional).
 
 ### Presentation of Attributes to the End User
 

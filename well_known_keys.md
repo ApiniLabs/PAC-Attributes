@@ -1,18 +1,20 @@
-> [!NOTE]
-> This page is to collect ideas for scenarios where keys are needed and make recommendations
+These are well-known keys for common scenarios:
 
-
-| Group / Attibute | Description | Recommended Key |
+| Attibute Groups | Description | Recommended Key |
 |---|---|---|
-**Safety** | R&S, hazard symbols, ...
-**Maintenance**
+Safety | R&S, hazard symbols, ... | https://labfreed.org/terms/attribute_group_safety
+Maintenance | | https://labfreed.org/terms/attribute_group_maintenance
+Production Data | Production Date, Site, ... | https://labfreed.org/terms/attribute_group_production_data
+Meta Data | |https://labfreed.org/terms/attribute_group_metadata
+
+
+| Attibute | Description | Recommended Key |
+|---|---|---|
 |
-**Production Data** | Production Date, Site, ...
 Production Date | |https://ref.gs1.org/ai/17 
 |
-**Meta Data** | |https://labfreed.org/terms/attribute_group_metadata
 Image | |https://schema.org/image
 Display Name | |https://schema.org/name
-Alias ||"https://schema.org/alternateName"
-Description ||"https://schema.org/description"
+Alias ||https://schema.org/alternateName
+Description ||https://schema.org/description
 
