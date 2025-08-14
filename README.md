@@ -30,9 +30,9 @@ Attribute Services are found via the `PAC-ID Resolver` configuration. Entries wi
 There is only one endpoint for the `PAC-ID Attributes` web service.
 It is RECOMMENDED to host the attribute server at the pac subdomain of the issuer’s domain, with the `/attributes endpoint` — for example: https://pac.mettorius.com/attributes.
 
-Attributes are retrieved by a HTTP **POST** request to the endpoint.
 
 ### Request
+HTTP **POST** request to the endpoint with the following JSON as payload.
 
 ```json
 {
@@ -102,7 +102,7 @@ The `Attribute Server` MUST send a response of this form:
                         {
                             "key": "https://labfreed.org/terms/example/NumericAttribute",
                             "value": {
-                                "magnitude": "14.88",
+                                "numerical_value": "14.88",
                                 "unit": "mol/L"
                             },
                             "label": "Numeric Attribute",
@@ -224,7 +224,7 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | :-- | :-- |
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
-| numeric   | json object with fields:<br>- `magnitude` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
+| numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
 | text     | Any Unicode string. SHOULD NOT span multiple lines.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
 | object    | Any json object. **Only use as a last resort** |
