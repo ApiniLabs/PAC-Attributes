@@ -300,7 +300,7 @@ If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Ser
 
 #### Choice of Keys
 
-Keys of `attribute groups` and `attributes` SHOULD  refer to a definition in an well-known source or to your own domain:
+Keys of `attribute groups` and `attributes` SHOULD  refer to a definition in an well-known source. It CAN also refer to your own domain:
 
 Source | Example | Comment
 :--|:--|:--
@@ -329,6 +329,15 @@ Attributes SHOULD be grouped with these guidelines in mind:
 - if an 'Attribute Client' shows `attribute groups` and their attributes the ordering should make sense to a user
 - 'Attribute Client' should be able to selectively show only a subset of `attribute groups`
 - Facilitate caching by grouping attributes with similar validity (e.g. valid forever and fast paced).
+
+### Inclusion of Common Attributes
+To support human-friendly presentation, the following attributes SHOULD be included in _exactly one_ attribute group:
+| Key                        | Value                                                  | Purpose                     |
+|:--- | :--- | :---  |
+| `https://schema.org/name`  | A Unicode string; MUST be human-readable and concise. <br> SHOULD be in the 'language' of the response, unless set by user | Human-readable display name |
+| `https://schema.org/image` | MUST be a URL which resolves to a valid image resource retrievable via HTTP <br> SHOULD have (~1:1 aspect ratio) and size o at least 256×256 px                | Representative image        |
+
+
 
 
 ### `Attribute Client`
