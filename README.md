@@ -299,6 +299,10 @@ If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Ser
 
 ### `Attribute Server`
 
+#### Scope of `Attribute Server`
+
+It is RECOMMENDED to scope attribute servers by category (or similar logical grouping) so that the attribute groups available from a given server are usually applicable to all `PAC-ID`s it handles.
+
 #### Choice of Keys
 
 Keys of `attribute groups` and `attributes` SHOULD  refer to a definition in an well-known source. It CAN also refer to your own domain:
