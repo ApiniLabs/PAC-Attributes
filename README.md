@@ -27,8 +27,7 @@ Attribute Services are found via the `PAC-ID Resolver` configuration. Entries wi
 ### Endpoint
 
 There is only one endpoint for the `PAC-ID Attributes` web service.
-It is RECOMMENDED to host the attribute server at `pac.<issuer domain name>/attributes` (e.g. `pac.mettorius.com/attributes`)
-
+It is RECOMMENDED to host the attribute server at the pac subdomain of the issuer’s domain, with the `/attributes endpoint` — for example: https://pac.mettorius.com/attributes.
 ### Request
 
 Attributes are retrieved from the `Attribute Server` by a HTTP **POST** request with this json body:
@@ -193,7 +192,7 @@ Each item represents attributes for a single `PAC-ID`.
 Field | Description |
 :-- |:-- |
 `pac_id` |The `PAC-ID` for which attributes are returned. Extensions from the request MUST be preserved.
-`attribute_groups` |Array of [`attribute group`](#attribute-group)..
+`attribute_groups` |Array of [`attribute group`](#attribute-group).
 
 ##### Attribute Groups
 
