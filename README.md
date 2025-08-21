@@ -86,8 +86,7 @@ The `Attribute Server` MUST send a response of this form:
                             "label": "Image",
                             "type": "text"
                         }
-                    ],
-                    "state_of": "2025-08-11T07:00:41.063055Z"
+                    ]
                 },
                 {
                     "key": "https://mettorius.com/terms/attribute_group_example",
@@ -143,8 +142,7 @@ The `Attribute Server` MUST send a response of this form:
                             "label": "Object Attribute (LAST RESORT)",
                             "type": "object"
                         }
-                    ],
-                    "state_of": "2025-08-11T07:00:41.526506Z"
+                    ]
                 }
             ]
         },
@@ -167,8 +165,7 @@ The `Attribute Server` MUST send a response of this form:
                             "label": "Image",
                             "type": "text"
                         }
-                    ],
-                    "state_of": "2025-08-11T07:00:41.063055Z"
+                    ]
                 }
             ]
         }
@@ -205,8 +202,7 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | `key`         | Yes | Unique URL identifying the attribute group. (see [on the choice of keys](#choice-of-keys))|
 | `label`       | Yes | Human-readable label in the [language of the response](#top-level-fields).|
 | `attributes`  | Yes | Array of attribute objects (see [Attributes](#attributes)).|
-| `state_of`    | Optional | ISO 8601 UTC timestamp when the attribute values were gathered by the server. [a guide to dates in the response](#a-guide-to-timestamps-in-the-response) |
-| `valid_until` | Optional | ISO 8601 UTC timestamp until which the data may be cached. If absent, treat as **not cacheable**. |
+
 
 ##### Attributes
 
@@ -214,9 +210,9 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 |:-|-|:-|
 `key` | Yes | Unique URL identifying the attribute. (see [on the choice of keys](#choice-of-keys)) <br> MUST be unique within an `attribute group`. <br> It is RECOMMENDED to choose keys which are unique within the entire Attribute Service. 
 `label` |Yes| Human-readable label in the [language of the response](#top-level-fields).|
-| `type`| Yes | One of the "bool", "datetime", "numeric", "text", "reference", "object" |
+| `type`| Yes | One of the "bool", "datetime", "numeric", "text", "reference", "asset", "object" |
 `value` | Yes | Value matching the type-specific format (see below).
-`observed_at` | Optional | ISO 8601 UTC timestamp when the value was observed. e.g. test date, analysis date
+| `cacheable_forever` | Optional | Boolean indicating, whether this attribute can be assume to never change. This can be used by the client to improve usability. |
 
 ##### Type-Specific `value`formats
 
@@ -225,25 +221,16 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
 | numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
-| text     | Any Unicode string. SHOULD NOT span multiple lines.|
+ | text     | Any Unicode string. SHOULD NOT span multiple lines.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
+| asset | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
 | object    | Any json object. **Only use as a last resort** |
+
 
 > [!NOTE]
 > The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
 
-#### A guide to timestamps in the response
 
-<div style="color:red">
-TODO: Welche Timestamps soll es geben?
-
-| Timestamp | Description | Comment |
-|:--|:--|:--|
-| `state_of`    | The attribute server will often not be the leading system for attribute data, but take a copy. State of indicates the time this data was copied from the leading system to the attribute server. |
-| `valid_until` | ISO 8601 UTC timestamp until which the data may be cached. If absent, treat as **not cacheable**. |
-`observed_at` | e.g. test date, analysis date
-
-</div>
 
 #### Authentication
 
@@ -350,12 +337,13 @@ To support human-friendly presentation, the following attributes SHOULD be inclu
 #### Caching of Attributes
 
 Usability can be greatly improved if values are cached, making applications much faster.
-Clients MAY use the validity duration (`valid_until`) of attributes to cache data (it is best practice but optional).
+Clients MAY use the `cacheable_forever` field of attributes to display cached data (it is best practice but optional).
 
 ### Presentation of Attributes to the End User
 
 There may be multiple services returning attributes for one particular `PAC-ID`. Services might be of different importance to a user and their (perceived) reliability might vary. Also there is a potential for conflicting attributes.
 It is RECOMMENDED the client presents attribute groups with a title “{AttributeGroupDisplayName} ( from {issuer})” e.g. “Physical Properties (from METTORIUS.COM ).
+The order of attributes SHOULD be preserved.
 
 ## Terminology Used
 
@@ -382,3 +370,18 @@ This work is licensed under a
 In a nutshell:
 To find units it is recommended to use the [unit validator](https://lhncbc.github.io/ucum-lhc/demo.html) or refer to [common examples](https://github.com/ucum-org/ucum/blob/main/common-units/TableOfExampleUcumCodesForElectronicMessagingwithPreface.pdf)
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
+
+
+
+
+TODO: 
+- attribute groups Sarenly for visual grouping. keys themselves must identify a meaning
+- FAQ:
+  - for things liek melting point: goldbood does not define conditions
+  - assume standard conditions 
+  - best practice: mention in label
+  - reason: it would be a big step if attributes weereavailable in such a standard form. labfreed apirit, keep the entrry barreier low. can still be dealt with in the future 
+  - if you use really special experimental conditions define your own key and provide a definition there
+- introduce list of elements 
+- introduce image type
+- 
