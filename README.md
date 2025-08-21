@@ -210,8 +210,8 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 |:-|-|:-|
 `key` | Yes | Unique URL identifying the attribute. (see [on the choice of keys](#choice-of-keys)) <br> MUST be unique within an `attribute group`. <br> It is RECOMMENDED to choose keys which are unique within the entire Attribute Service. 
 `label` |Yes| Human-readable label in the [language of the response](#top-level-fields).|
-| `type`| Yes | One of the "bool", "datetime", "numeric", "text", "reference", "asset", "object" |
-`value` | Yes | Value matching the type-specific format (see below).
+| `type`| Yes | One of "bool", "datetime", "numeric", "text", "reference", "asset", "object" |
+| `value` | Yes | Either a value matching the type-specific format (see below), or a homogeneous list of such value. 
 | `cacheable_forever` | Optional | Boolean indicating, whether this attribute can be assume to never change. This can be used by the client to improve usability. |
 
 ##### Type-Specific `value`formats
@@ -221,7 +221,7 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
 | numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
- | text     | Any Unicode string. SHOULD NOT span multiple lines.|
+| text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
 | asset | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
 | object    | Any json object. **Only use as a last resort** |
@@ -372,16 +372,3 @@ To find units it is recommended to use the [unit validator](https://lhncbc.githu
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
 
 
-
-
-TODO: 
-- attribute groups Sarenly for visual grouping. keys themselves must identify a meaning
-- FAQ:
-  - for things liek melting point: goldbood does not define conditions
-  - assume standard conditions 
-  - best practice: mention in label
-  - reason: it would be a big step if attributes weereavailable in such a standard form. labfreed apirit, keep the entrry barreier low. can still be dealt with in the future 
-  - if you use really special experimental conditions define your own key and provide a definition there
-- introduce list of elements 
-- introduce image type
-- 
