@@ -212,7 +212,7 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 `label` |Yes| Human-readable label in the [language of the response](#top-level-fields).|
 | `type`| Yes | One of "bool", "datetime", "numeric", "text", "reference", "resource", "object" |
 | `value` | Yes | Either a value matching the type-specific format (see below), or a homogeneous list of such value. 
-| `cacheable_forever` | Optional | Boolean indicating, whether this attribute can be assume to never change. This can be used by the client to improve usability. |
+
 
 ##### Type-Specific `value`formats
 
@@ -308,10 +308,6 @@ your domain | <https://mettorius.com/terms/melting-point> | CAN be an active end
 
 Here is a list of [recommended keys](well_known_keys.md) for common scenarios.
 
-### Validity Duration of Attributes
-
-Usability can be greatly improved if values are cached by the 'Attribute Client', making applications much faster.
-Attribute services SHOULD thus provide information about the validity duration (`valid_until`) of attributes.
 
 
 ### Grouping of Attributes
@@ -334,10 +330,6 @@ To support human-friendly presentation, the following attributes SHOULD be inclu
 
 ### `Attribute Client`
 
-#### Caching of Attributes
-
-Usability can be greatly improved if values are cached, making applications much faster.
-Clients MAY use the `cacheable_forever` field of attributes to display cached data (it is best practice but optional).
 
 ### Presentation of Attributes to the End User
 
