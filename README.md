@@ -212,8 +212,8 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 |:-|-|:-|
 `key` | Yes | Unique URL identifying the attribute. (see [on the choice of keys](#choice-of-keys)) <br> MUST be unique within an `attribute group`. <br> It is RECOMMENDED to choose keys which are unique within the entire Attribute Service. 
 `label` |Yes| Human-readable label in the [language of the response](#top-level-fields).|
-| `type`| Yes | One of "bool", "datetime", "numeric", "text", "reference", "resource", "object" |
-| `value` | Yes | Either a value matching the type-specific format (see below), or a homogeneous list of such value. 
+| `type`| Yes | One of "bool", "datetime", "numeric", "text", "reference", "resource", "object","bool-list", "datetime-list", "numeric-list", "text-list", "reference-list", "resource-list", "object-list" |
+| `value` | Yes | A value matching the type-specific format (see below) 
 
 
 ##### Type-Specific `value`formats
@@ -221,13 +221,19 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 | Type| Value Format|
 | :-- | :-- |
 | bool | `true` or `false` |
+| bool-list | A or a homogeneous list of the above
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
+| datetime-list | A or a homogeneous list of the above
 | numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- `unit` MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> |
+| numeric-list | A or a homogeneous list of the above
 | text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
+| text-list | A or a homogeneous list of the above
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
+| reference-list | A or a homogeneous list of the above
 | resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
+| resource-list | A or a homogeneous list of the above
 | object    | Any json object. **Only use as a last resort** |
-
+| object-list | A or a homogeneous list of the above.**Only use as a last resort** 
 
 
 #### Authentication
