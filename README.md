@@ -278,7 +278,7 @@ Language negotiation:
 
 If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Server` has attributes for, the attributes for this 'PAC-ID' SHOULD be included, i.e. append the attributes of this PAC-ID to the `responses` list. This avoids repeated requests.
 > [!NOTE]
->  It is not the intention to request attributes from other `Attribute Servers`
+> It is not the intention to request attributes from other `Attribute Servers`
 
 
 
@@ -292,21 +292,17 @@ It is RECOMMENDED to scope attribute servers by category (or similar logical gro
 
 #### Choice of Keys
 
-Keys of `attribute groups` and `attributes` SHOULD  refer to a definition in an well-known source. It CAN also refer to your own domain:
+Keys of `attribute groups` and `attributes` SHOULD be chosen with respect to the area of concern to which an attribute belongs (e.g. generic metadata, chemistry, safety, logistics).
 
-Source | Example | Comment
-:--|:--|:--
-schema.org | <https://schema.org/location> |
-[GS1 Application identifier](https://ref.gs1.org/ai) | <https://ref.gs1.org/ai/17> |
-[IUPAC gold book](https://goldbook.iupac.org/terms) | <https://doi.org/10.1351/goldbook.A00028> |
-labfreed.org | <https://labfreed.com/terms/boiling-point>
-your domain | <https://mettorius.com/terms/melting-point> | CAN be an active endpoint. If so it is suggested to display a definition and translations.
+Keys CAN also refer to your own domain (e.g. https://mettorius.com/terms/maximum-weight). Use this option as a last resort. It is RECOMMENDED the key is an active endpoint, where a definition and translations are displayed.
 
-
-
-
+To ensure interoperability, implementers SHOULD prefer identifiers from well-known authoritative sources before defining their own. 
+> [!NOTE]
+>The use of such standardized keys enables clients to discover and process information in a predictable manner. For example a client that understands the https://schema.org/image key can reliably fetch and display product images. Or a lab instrument looking for melting point keys can find them, retrieve values, and even suggest a method for substance verification.
 
 Here is a list of [recommended keys](well_known_keys.md) for common scenarios.
+
+
 
 
 
