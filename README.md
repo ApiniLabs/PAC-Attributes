@@ -1,5 +1,12 @@
 # PAC-ID Attributes
 
+> [!WARNING] 
+> **Draft Specification**
+>
+> This document is a draft. Contents are subject to change. 
+> 
+> We invite you to join the discussion [on Discord](https://discord.gg/gjJwJcC8).
+
 ## In a Nutshell
 
 `PAC-ID Attributes` standardizes a generic, vendor-neutral web service interface for retrieving metadata about an item identified with a PAC-ID.
