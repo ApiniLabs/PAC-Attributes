@@ -28,7 +28,7 @@ Attribute Services are found via the `PAC-ID Resolver` configuration. Entries wi
 ### Endpoint
 
 There is only one endpoint for the `PAC-ID Attributes` web service.
-It is RECOMMENDED to host the attribute server at the pac subdomain of the issuer’s domain, with the `/attributes endpoint` — for example: https://pac.mettorius.com/attributes.
+It is RECOMMENDED to host the attribute server at the pac subdomain of the issuer’s domain, with the `/attributes` endpoint — for example: 'https://pac.mettorius.com/attributes'.
 
 
 ### Request
@@ -40,11 +40,11 @@ Here is an example:
   "pac_ids": [
     "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001/EXAMPLE*59K77LWDX8W" 
   ],  
+  "language_preferences": ["en", "fr"], 
   "restrict_to_attribute_groups": [
     "https://labfreed.org/terms/attribute_group_metadata",
     "https://mettorius.com/terms/attribute_group_example"
   ],
-  "language_preferences": ["en", "fr"], 
   "suppress_forward_lookup": false  
 }
 
@@ -53,8 +53,8 @@ Here is an example:
 Field | Description
 :--- | :---
 `pac_ids` | A list of PAC-ID, serialized as urls. <br>Each `PAC-ID` MUST be valid and MAY contain extensions. <br> MUST NOT exceeding 100 items.
-`restrict_to_attribute_groups` <br> (optional) | A list of `attribute group` keys. Instructs the server to only return these attribute groups. <br> If omitted, the server MUST return all available attribute groups. <br> If none of these attribute groups are found for a requested PAC-ID the server MUST return a response where the responses field does not include an entry for this PAC-ID.
 `language_preferences` <br> (optional) | A list of languages with decreasing preference. <br> Entries MUST be ISO 639-1 language codes (e.g. "en" or "de"). The server MUST return the first language it can. If the server does not support any of languages in `language_preferences` it MUST return its default language.<br> If omitted the server MUST return its default language. (see [internationalization](#internationalization))
+`restrict_to_attribute_groups` <br> (optional) | A list of `attribute group` keys. Instructs the server to only return these attribute groups. <br> If omitted, the server MUST return all available attribute groups. <br> If none of these attribute groups are found for a requested PAC-ID the server MUST return a response where the responses field does not include an entry for this PAC-ID.
 `suppress_forward_lookup` <br> (optional)| Instructs the server to not include attributes of `PAC-ID` which are attributes of type 'reference' of the requested `PAC-ID` (see [avoid round trips](#avoid-round-trips)). <br>If omitted the server MUST treat it as false and include attributes of references `PAC-ID`s.
 
 ### Response
@@ -183,7 +183,7 @@ Here is an example:
 | Field            | Description |
 |:---|:---|
 | `schema_version` |  Version of the response schema.|
-| `language`       | The language of the response. See [internaltionalization](#internationalization) |
+| `language`       | The language of the response. See [internationalization](#internationalization) |
 | `pac_attributes` | Array of [`pac_attributes`](pac_attributes).|
 
 ##### `pac_attributes`
@@ -197,7 +197,7 @@ Field | Description |
 
 ##### Attribute Groups
 
-Attributes are grouped. See [best practices for grouping attributes](#best-practices-for-grouping-attributes)
+For better usability attributes are organized into `attibute_groups`. See [best practices for grouping attributes](#best-practices-for-grouping-attributes)
 
 | Field         |  required| Description|
 | :-| :-| :-|
@@ -222,15 +222,11 @@ Attributes are grouped. See [best practices for grouping attributes](#best-pract
 | :-- | :-- |
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
-| numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`).<br>- `unit` MUST be a valid UCUM unit [^1]. Use `"1"` for unitless values.<br> |
+| numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- `unit` MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> |
 | text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
 | resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
 | object    | Any json object. **Only use as a last resort** |
-
-
-> [!NOTE]
-> The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
 
 
 
@@ -258,7 +254,7 @@ Although `PAC-Attributes` are primarily about data transfer, it is a common use 
 
 - `Attribute Server` format: Always non-localized.
   - Dates: All datetimes MUST be in UTC. The timezone SHOULD be explicitly stated; if omitted, clients MUST assume UTC. Examples: 2025-07-21T15:30:00+00:00 or 2025-07-21T15:30:00Z.
-  - Numbers: Always use a "." as the decimal separator.
+  - Numbers: Always use a "." as the decimal separator. [^num_as_str]
 - `Attribute Client` localize formatting (e.g., decimal separators, units) as needed.
 
 #### Labels and Text Attributes
@@ -354,9 +350,10 @@ This work is licensed under a
 [cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
 [cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
 
-[^1]: [The Unified Code for Units of Measure](https://ucum.org/):
+[^ucum]: [The Unified Code for Units of Measure](https://ucum.org/):
 In a nutshell:
 To find units it is recommended to use the [unit validator](https://lhncbc.github.io/ucum-lhc/demo.html) or refer to [common examples](https://github.com/ucum-org/ucum/blob/main/common-units/TableOfExampleUcumCodesForElectronicMessagingwithPreface.pdf)
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
 
+[^num_as_str]: The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
 
