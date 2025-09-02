@@ -32,7 +32,8 @@ It is RECOMMENDED to host the attribute server at the pac subdomain of the issue
 
 
 ### Request
-HTTP **POST** request to the endpoint with the following JSON as payload.
+HTTP **POST** request to the endpoint with a JSON payload, adhering to this [schema](attribute_request_payload.schema.json).
+Here is an example:
 
 ```json
 {
@@ -60,7 +61,8 @@ Field | Description
 
 #### Response Structure
 
-The `Attribute Server` MUST send a response of this form:
+The `Attribute Server` MUST send a response with of JSON payload, adhering to this [schema](attribute_response_payload.schema.json).
+Here is an example:
 <!-- BEGIN RESPONSE JSON -->
 ```json
 {
@@ -279,8 +281,6 @@ Language negotiation:
 If a attribute of type `reference`is itself a `PAC-ID`, which the `Attribute Server` has attributes for, the attributes for this 'PAC-ID' SHOULD be included, i.e. append the attributes of this PAC-ID to the `responses` list. This avoids repeated requests.
 > [!NOTE]
 > It is not the intention to request attributes from other `Attribute Servers`
-
-
 
 ## Best Practices
 
