@@ -228,19 +228,13 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 | Type| Value Format|
 | :-- | :-- |
 | bool | `true` or `false` |
-| bool-list | A or a homogeneous list of the above
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
-| datetime-list | A or a homogeneous list of the above
 | numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- `unit` MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> |
-| numeric-list | A or a homogeneous list of the above
 | text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
-| text-list | A or a homogeneous list of the above
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
-| reference-list | A or a homogeneous list of the above
 | resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
-| resource-list | A or a homogeneous list of the above
 | object    | Any json object. **Only use as a last resort** |
-| object-list | A or a homogeneous list of the above.**Only use as a last resort** 
+| bool-list, datatime-list, numeric-list, text-list, reference-list, resource-list, object-list | A homogeneous list of the datatype before '-list'. 
 
 
 #### Authentication
