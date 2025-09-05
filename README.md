@@ -3,7 +3,7 @@
 > [!WARNING] 
 > **Draft Specification**
 >
-> This document is a draft. Contents are subject to change. 
+> This document is in draft state. Contents are subject to change. 
 > 
 > We invite you to join the discussion [on Discord](https://discord.gg/gjJwJcC8).
 
@@ -23,7 +23,7 @@ To address this, `PAC-ID Attributes` defines a neutral, standardized web service
 Term | Description
 :--|:--
 `Attribute Server` | A server which published attributes according to this specification
-`Attribute Client` | Any application which requests attributes from an `Attribute Server`.
+`Attribute Client` | Any application which requests attributes from an `Attribute Server`
 
 # Endpoint Discovery
 
@@ -39,7 +39,7 @@ It is RECOMMENDED to host the attribute server at the pac subdomain of the issue
 
 
 ### Request
-HTTP **POST** request to the endpoint with a JSON payload, adhering to this [schema](attribute_request_payload.schema.json).
+HTTP **POST** request to the endpoint with a JSON payload, adhering to this [schema](attribute_request_payload.schema.json).<br>
 Here is an example:
 
 ```json
@@ -262,14 +262,14 @@ Although `PAC-Attributes` are primarily about data transfer, it is a common use 
 - `Attribute Server` format: Always non-localized.
   - Dates: All datetimes MUST be in UTC. The timezone SHOULD be explicitly stated; if omitted, clients MUST assume UTC. Examples: 2025-07-21T15:30:00+00:00 or 2025-07-21T15:30:00Z.
   - Numbers: Always use a "." as the decimal separator. [^num_as_str]
-- `Attribute Client` localize formatting (e.g., decimal separators, units) as needed.
+- `Attribute Client`s localize formatting (e.g., decimal separators, units) as needed.
 
 #### Labels and Text Attributes
 
 Labels and attributes of type `text` require translation. Since `Attribute Client`s cannot reliably infer appropriate translations, the `Attribute Server`s response MUST already contain translations.
 
 - `Attribute Server` response language:
-- MUST be consistent across the entire response.
+  - MUST be consistent across the entire response.
   - Labels of `attribute groups` and `attributes` MUST be in this language.
   - Text attribute values MUST be in this language.
 
@@ -296,10 +296,10 @@ It is RECOMMENDED to scope attribute servers by category (or similar logical gro
 #### Choice of Keys
 
 Keys of `attribute groups` and `attributes` SHOULD be chosen with respect to the area of concern to which an attribute belongs (e.g. generic metadata, chemistry, safety, logistics).
+Keys CAN also refer to your own domain (e.g. https://mettorius.com/terms/maximum-weight).
+It is RECOMMENDED the key is an active endpoint, where a definition and translations are displayed.
 
-Keys CAN also refer to your own domain (e.g. https://mettorius.com/terms/maximum-weight). Use this option as a last resort. It is RECOMMENDED the key is an active endpoint, where a definition and translations are displayed.
-
-To ensure interoperability, implementers SHOULD prefer identifiers from well-known authoritative sources before defining their own. 
+To ensure interoperability, implementers SHOULD prefer identifiers from well-known authoritative sources before defining their own.
 > [!NOTE]
 >The use of such standardized keys enables clients to discover and process information in a predictable manner. For example a client that understands the https://schema.org/image key can reliably fetch and display product images. Or a lab instrument looking for melting point keys can find them, retrieve values, and even suggest a method for substance verification.
 
@@ -313,16 +313,15 @@ Here is a list of [recommended keys](well_known_keys.md) for common scenarios.
 
 Attributes SHOULD be grouped with these guidelines in mind:
 
-- if an 'Attribute Client' shows `attribute groups` and their attributes the ordering should make sense to a user
 - 'Attribute Client' should be able to selectively show only a subset of `attribute groups`
 - Facilitate caching by grouping attributes with similar validity (e.g. valid forever and fast paced).
 
 ### Inclusion of Common Attributes
 To support human-friendly presentation, the following attributes SHOULD be included in _exactly one_ attribute group:
-| Key                        | Value                                                  | Purpose                     |
-|:--- | :--- | :---  |
-| `https://schema.org/name`  | A Unicode string; MUST be human-readable and concise. <br> SHOULD be in the 'language' of the response, unless set by user | Human-readable display name |
-| `https://schema.org/image` | MUST be a URL which resolves to a valid image resource retrievable via HTTP <br> SHOULD have (~1:1 aspect ratio) and size o at least 256×256 px                | Representative image        |
+| Key                        | Type |Value                                                  | Purpose                     |
+|:--- | :--- | :---  | :---
+| `https://schema.org/name`  | text | A Unicode string; MUST be human-readable and concise. <br> SHOULD be in the 'language' of the response, unless set by user | Human-readable display name |
+| `https://schema.org/image` | resource | MUST be a URL which resolves to a valid image resource retrievable via HTTP <br> SHOULD have (~1:1 aspect ratio) and size o at least 256×256 px                | Representative image        |
 
 
 
@@ -333,7 +332,9 @@ To support human-friendly presentation, the following attributes SHOULD be inclu
 ### Presentation of Attributes to the End User
 
 There may be multiple services returning attributes for one particular `PAC-ID`. Services might be of different importance to a user and their (perceived) reliability might vary. Also there is a potential for conflicting attributes.
+
 It is RECOMMENDED the client presents attribute groups with a title “{AttributeGroupDisplayName} ( from {issuer})” e.g. “Physical Properties (from METTORIUS.COM ).
+
 The order of attributes SHOULD be preserved.
 
 ## Terminology Used

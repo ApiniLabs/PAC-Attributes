@@ -3,8 +3,8 @@ These are well-known keys for common scenarios:
 ## Table of Content
 - [Table of Content](#table-of-content)
 - [General Metadata](#general-metadata)
-- [Logistics and product identifiers](#logistics-and-product-identifiers)
-- [Chemistry and scientific terms](#chemistry-and-scientific-terms)
+- [Logistics and Product Identifiers](#logistics-and-product-identifiers)
+- [Chemistry and Scientific Terms](#chemistry-and-scientific-terms)
 - [Safety](#safety)
 
 
@@ -21,7 +21,7 @@ Alias | https://schema.org/alternateName
 Description | https://schema.org/description
 
 
-## Logistics and product identifiers
+## Logistics and Product Identifiers
 
 Preferred source for keys: [GS1 Application identifier](https://ref.gs1.org/ai) 
 
@@ -32,11 +32,11 @@ Expiration Data | https://ref.gs1.org/ai/17
 ... |
 
 
-## Chemistry and scientific terms 
+## Chemistry and Scientific Terms 
 
 Preferred source for keys: [IUPAC Gold Book](https://goldbook.iupac.org/terms), especially the [quantities](https://goldbook.iupac.org/indexes/quantities)
 > [!IMPORTANT]
-> Make sure to use the DOI (e.g. [https://doi.org/10.1351/goldbook.A00028](https://doi.org/10.1351/goldbook.A00028)), not the view (e.g. [https://goldbook.iupac.org/terms/view/A00028](https://goldbook.iupac.org/terms/view/A00028))
+> Make sure to use the DOI , not the view (e.g. [https://doi.org/10.1351/goldbook.A00028](https://doi.org/10.1351/goldbook.A00028), not ~~[https://goldbook.iupac.org/terms/view/A00028](https://goldbook.iupac.org/terms/view/A00028)~~)
 
 | Attribute |  Recommended Key | Comment |
 |---|---|---|
@@ -51,8 +51,8 @@ Polarity of Solvent | https://doi.org/10.1351/goldbook.P04710
 Pressure | https://doi.org/10.1351/goldbook.P04819
 Refractive Index | https://doi.org/10.1351/goldbook.R05240
 Solubility | https://doi.org/10.1351/goldbook.S05740
-Wavelength | https://doi.org/10.1351/goldbook.W06659
-|
+Wavelength | https://doi.org/10.1351/goldbook.W06659|
+|||
 **Methodology**
 Reference Method | https://doi.org/10.1351/goldbook.R05231
 Reference Material | https://doi.org/10.1351/goldbook.R05230
