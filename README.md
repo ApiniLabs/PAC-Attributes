@@ -90,10 +90,10 @@ Here is an example:
                             "type": "text"
                         },
                         {
-                            "key": "https://schema.org/image",
-                            "value": "https://picsum.photos/id/82/200",
+                            "key": "https://labfreed.org/terms/example/ResourceAttribute",
+                            "value": "[https://picsum.photos/id/82/200](https://mettorius.com/BAL500.png)",
                             "label": "Image",
-                            "type": "text"
+                            "type": "resource"
                         }
                     ]
                 },
@@ -232,7 +232,7 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 | numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- `unit` MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> |
 | text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
-| resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/images/BAL500.png")
+| resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/BAL500.png")
 | object    | Any json object. **Only use as a last resort** |
 | bool-list, datatime-list, numeric-list, text-list, reference-list, resource-list, object-list | A homogeneous list of the datatype before '-list'. 
 
@@ -364,4 +364,5 @@ To find units it is recommended to use the [unit validator](https://lhncbc.githu
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
 
 [^num_as_str]: The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
+
 
