@@ -91,7 +91,7 @@ Here is an example:
                         },
                         {
                             "key": "https://labfreed.org/terms/example/ResourceAttribute",
-                            "value": "[https://picsum.photos/id/82/200](https://mettorius.com/BAL500.png)",
+                            "value": "https://mettorius.com/BAL500.png",
                             "label": "Image",
                             "type": "resource"
                         }
@@ -364,5 +364,6 @@ To find units it is recommended to use the [unit validator](https://lhncbc.githu
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
 
 [^num_as_str]: The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
+
 
 
