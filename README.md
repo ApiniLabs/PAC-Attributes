@@ -6,6 +6,12 @@
 > This document is in draft state. Contents are subject to change. 
 > 
 > We invite you to join the discussion [on Discord](https://discord.gg/gjJwJcC8).
+>
+> Currently in discussion
+> > [!WARNING] 
+> - It was suggested to use more conventional GET request on the cost of only being able to request attributes for one PAC-ID at a time. The parameters (language_preferences, etc) are not contested and would become query parameters.
+> - It was suggested to align the resposne with Json-LD, which uses an RDF model. The content of the response (i.e. attribute groups with flat list fo attributes) and the datatypes are considered adequate.
+
 
 ## In a Nutshell
 
@@ -364,6 +370,7 @@ To find units it is recommended to use the [unit validator](https://lhncbc.githu
 Units can be combined by multiplication: Examples of units: "kg", "m", "s", "kg.m.s-2" or "kg.m/s2"
 
 [^num_as_str]: The numeric data type was chosen with scientific use cases in mind: We have chosen to representation of numbers as strings to allow for capturing the precision of the measurement (not the datatype). "10.000" means that there are 3 significant digits. <br> Numbers must always be accompanied by units or it must be explicitly stated when a number is unitless.
+
 
 
 
