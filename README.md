@@ -7,9 +7,9 @@
 > 
 > We invite you to join the discussion [on Discord](https://discord.gg/gjJwJcC8).
 >
-> Currently in discussion
-> - It was suggested to use more conventional GET request on the cost of only being able to request attributes for one PAC-ID at a time. The parameters (language_preferences, etc) are not contested and would become query parameters.
-> - It was suggested to align the resposne with Json-LD, which uses an RDF model. The content of the response (i.e. attribute groups with flat list fo attributes) and the datatypes are considered adequate.
+> Main topics in need for clarification:
+> - Reconsider a simple GET request on the cost of only being able to request attributes for one PAC-ID at a time. The parameters (language_preferences, etc) are not contested and would become query parameters.
+> - Investigate whether it would make sense to model attributes as RDF triplets and use Json-LD for serialization for improving interoperability and tool support.
 
 
 ## In a Nutshell
