@@ -30,7 +30,7 @@ Term | Description
 `Attribute Server` | A server which published attributes according to this specification
 `Attribute Client` | Any application which requests attributes from an `Attribute Server`
 
-# Endpoint Discovery
+## Endpoint Discovery
 
 Attribute Services are found via the `PAC-ID Resolver` configuration. Entries with `attributes-generic` in the 'service-type' field are attribute services.
 
@@ -44,30 +44,31 @@ It is RECOMMENDED to host the attribute server at the pac subdomain of the issue
 
 
 ### Request
-HTTP **POST** request to the endpoint with a JSON payload, adhering to this [schema](attribute_request_payload.schema.json).<br>
-Here is an example:
 
-```json
-{
-  "pac_ids": [
-    "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001/EXAMPLE*59K77LWDX8W" 
-  ],  
-  "language_preferences": ["en", "fr"], 
-  "restrict_to_attribute_groups": [
-    "https://labfreed.org/terms/attribute_group_metadata",
-    "https://mettorius.com/terms/attribute_group_example"
-  ],
-  "suppress_forward_lookup": false  
-}
+MUST be a HTTP **GET** request to the endpoint with the `PAC-ID` added as url segment. The `PAC-ID` MUST be url-encoded.
 
+Example:
+```
+GET https://pac.mettorius.com/attributes/HTTPS%3A%2F%2FPAC.METTORIUS.COM%2F-MD%2FBAL500%2F000001
 ```
 
-Field | Description
+#### Query parameters
+
+Parameter | Description
 :--- | :---
-`pac_ids` | A list of PAC-ID, serialized as urls. <br>Each `PAC-ID` MUST be valid and MAY contain extensions. <br> MUST NOT exceeding 100 items.
-`language_preferences` <br> (optional) | A list of languages with decreasing preference. <br> Entries MUST be ISO 639-1 language codes (e.g. "en" or "de"). The server MUST return the first language it can. If the server does not support any of languages in `language_preferences` it MUST return its default language.<br> If omitted the server MUST return its default language. (see [internationalization](#internationalization))
-`restrict_to_attribute_groups` <br> (optional) | A list of `attribute group` keys. Instructs the server to only return these attribute groups. <br> If omitted, the server MUST return all available attribute groups. <br> If none of these attribute groups are found for a requested PAC-ID the server MUST return a response where the responses field does not include an entry for this PAC-ID.
-`suppress_forward_lookup` <br> (optional)| Instructs the server to not include attributes of `PAC-ID` which are attributes of type 'reference' of the requested `PAC-ID` (see [avoid round trips](#avoid-round-trips)). <br>If omitted the server MUST treat it as false and include attributes of references `PAC-ID`s.
+`restrict_to_attribute_groups` (optional, repeatable) | A list of attribute group keys. **MUST** be url-encoded. The client **MAY** repeat this parameter to specify multiple attribute groups:<br>`?restrict_to_attribute_groups={key1}&restrict_to_attribute_groups={key2}`<br>If omitted, the server **MUST** return all available attribute groups. If none of the specified attribute groups are found for the requested PAC-ID, the server **MUST** return a response where the `responses` field does not include an entry for this PAC-ID.
+`suppress_forward_lookup` (optional) | Boolean flag. Instructs the server to not include attributes of PAC-IDs which are attributes of type `reference` of the requested PAC-ID (see [avoid round trips](#avoid-round-trips)). If omitted, the server **MUST** treat it as `false` and include attributes of referenced PAC-IDs.
+
+#### Language Preferences
+The client MAY express it's language preferences using standard HTTP `Accept-Language` syntax, e.g.:<br>`Accept-Language: en-US, en;q=0.9, fr;q=0.6`<br>Each language tag **MUST** use an ISO 639-1 language code (e.g. `"en"`, `"de"`) as its primary subtag.
+<br>The server **MUST** select the language of the response as follows:
+The server **SHOULD** consider `q` values, preferring languages with higher `q` values and ignoring any with `q=0`.
+If two or more entries have the same `q` value, or if no `q` parameters are given, the server **MUST** interpret the header as a list in **decreasing order of preference**, and prefer the language that appears earlier in the header.
+The server **MUST** return the first language (according to the above rules) that it supports. If the server does not support any of the requested languages, it **MUST** fall back to its default language.
+If the `Accept-Language` header is omitted, the server **MUST** use its default language (see [internationalization](#internationalization)).
+
+
+
 
 ### Response
 
