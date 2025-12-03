@@ -235,7 +235,7 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 | :-- | :-- |
 | bool | `true` or `false` |
 | datetime | ISO 8601 UTC date-time. MUST be in (`YYYY-MM-DDTHH:MM:SSZ`) format. MUST be in UTC.|
-| numeric   | json object with fields:<br>- `numerical_value` MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- `unit` MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> |
+| numeric   | String composed of the following concatenated elements, separated by a blankspace:<br>- numerical_value MUST be a string in decimal or scientific notation (`"14.88"`, `"-51.89E-2"`) [^num_as_str].<br>- unit MUST be a valid UCUM unit [^ucum]. Use `"1"` for unitless values.<br> Example: `51.89E-2 mol.L-1`|
 | text     | Any Unicode string. SHOULD NOT exceed 5000 characters.|
 | reference | String referring to another entity. It is RECOMMENDED to use `PAC-ID`s serialized as url. |
 | resource | A url to an asset, such as an image. It is RECOMMENDED to end with the file extension (e.g. "https://mettorius.com/BAL500.png")
