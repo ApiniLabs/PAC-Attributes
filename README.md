@@ -139,12 +139,6 @@ Here is an example of such a response:
           "group_label": "Example Attribute Group with List",
           "group_key": "https://mettorius.com/terms/attribute_group_example_list",
           "attributes": {
-            "https://labfreed.org/terms/example/TextAttribute": {
-              "label": "Text Attribute",
-              "items": [
-                { "value": "Bar", "type": "text" }
-              ]
-            },
             "https://labfreed.org/terms/example/MultiTextAttribute": {
               "label": "Multi Text Attribute",
               "items": [
@@ -345,7 +339,7 @@ Here is an example of a response, which includes these attributes:
   "language": "en",
   "data": [
     {
-      "pac_id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001*59K77LWDX8W",
+      "pac_id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001",
       "attribute_groups": [
         {
           "group_label": "MetaData",
@@ -394,10 +388,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ## FAQ
 
 See [here](faq.md).
-
-### Information on Design choices
-
-The design might look overcomplicated at first. However, there were reasons to do it that way. Find information on our design chocies [here](design-choices.md)
 
 
 ## License
