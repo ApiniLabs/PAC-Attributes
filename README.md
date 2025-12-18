@@ -175,9 +175,7 @@ Here is an example of such a response:
       ]
     }
   ],
-  "@context": {
-    "@import": "https://vocab.labfreed.org/attributes/v1.jsonld"
-  }
+  "@context":  "https://vocab.labfreed.org/attributes/v1.jsonld"
 }
 
 ```
