@@ -1,13 +1,5 @@
 # PAC-ID Attributes
 
-> [!WARNING] 
-> **Draft Specification**
->
-> This document is in draft state. Contents are subject to change. 
-> 
-> We invite you to join the discussion [on Discord](https://discord.gg/gjJwJcC8).
-
-
 ## In a Nutshell
 
 `PAC-ID Attributes` standardizes a generic, vendor-neutral web service interface for retrieving metadata about an item identified with a PAC-ID.
@@ -41,7 +33,7 @@ It is RECOMMENDED to host the attribute server at the pac subdomain of the issue
 
 ### Request
 
-MUST be a HTTP **GET** request to the endpoint with the `PAC-ID` added as url segment. The `PAC-ID` MUST be url-encoded.
+MUST be a HTTP **GET** request to the endpoint with the ID of the item added as url segment. The ID MUST be url-encoded. The ID must be an [IRI](https://datatracker.ietf.org/doc/html/rfc3987), preferably a `PAC-ID`.
 
 Example:
 ```
@@ -81,7 +73,7 @@ Here is an example of such a response:
   "language": "en",
   "data": [
     {
-      "pac_id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001*59K77LWDX8W",
+      "id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001*59K77LWDX8W",
       "attribute_groups": [
         {
           "group_label": "Example Attribute Group",
@@ -152,7 +144,7 @@ Here is an example of such a response:
       ]
     },
     {
-      "pac_id": "HTTPS://PAC.METTORIUS.COM/-MD/CALWEIGH/A00002",
+      "id": "HTTPS://PAC.METTORIUS.COM/-MD/CALWEIGH/A00002",
       "attribute_groups": [
         {
           "group_label": "MetaData",
@@ -198,7 +190,7 @@ Each item represents attributes for a single `PAC-ID`.
 
 Field | Description |
 :-- |:-- |
-`pac_id` |The `PAC-ID` for which attributes are returned. Extensions from the request MUST be preserved.
+`id` |The ID of the item for which attributes are returned. Extensions from the request MUST be preserved.
 `attribute_groups` |Array of [`attribute group`](#attribute-group).
 
 ##### Attribute Groups
@@ -219,10 +211,6 @@ For better usability attributes are organized into `attibute_groups`. See [best 
 `label` |Yes| Human-readable label in the [language of the response](#top-level-fields).|
 `items` | Yes | Array of [AttributeValue objects](#attributevalue) `{"value": "...", "type": "..."}` The values are considered **un**ordered. <br> <small> Rationale for the design choice: [^always_list] </small>|
 
-
-<span style="color:red">
-TODO: Decide on ordered items. Specify if needed
-</span>
 
 ##### AttributeValue
 | field | required| |
@@ -337,7 +325,7 @@ Here is an example of a response, which includes these attributes:
   "language": "en",
   "data": [
     {
-      "pac_id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001",
+      "id": "HTTPS://PAC.METTORIUS.COM/-MD/BAL500/000001",
       "attribute_groups": [
         {
           "group_label": "MetaData",

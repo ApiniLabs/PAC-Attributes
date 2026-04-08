@@ -19,6 +19,7 @@
     "attribute_groups": "@nest",
     "attributes": "@nest",
     "pac_id": "@id",
+    "id": "@id",
     "key": "@id",
     "items": "@set",
     "value": "@value",
