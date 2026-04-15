@@ -1,57 +1,33 @@
 {
     "$defs": {
-        "AttributeGroup": {
+        "Attribute": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "label": {
                     "type": "string"
                 },
-                "attributes": {
+                "items": {
                     "items": {
                         "oneOf": [
                             {
-                                "$ref": "#/$defs/ReferenceAttribute"
+                                "$ref": "#/$defs/DateTimeAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/DateTimeAttribute"
+                                "$ref": "#/$defs/BoolAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/BoolAttribute"
+                                "$ref": "#/$defs/TextAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/TextAttribute"
+                                "$ref": "#/$defs/NumericAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/NumericAttribute"
+                                "$ref": "#/$defs/ReferenceAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/ResourceAttribute"
+                                "$ref": "#/$defs/ResourceAttributeItemsElement"
                             },
                             {
-                                "$ref": "#/$defs/ObjectAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/ReferenceListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/DateTimeListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/BoolListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/TextListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/NumericListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/ResourceListAttribute"
-                            },
-                            {
-                                "$ref": "#/$defs/ObjectListAttribute"
+                                "$ref": "#/$defs/ObjectAttributeItemsElement"
                             }
                         ]
                     },
@@ -59,14 +35,36 @@
                 }
             },
             "required": [
-                "key",
+                "label",
+                "items"
+            ],
+            "type": "object"
+        },
+        "AttributeGroup": {
+            "properties": {
+                "group_key": {
+                    "type": "string"
+                },
+                "group_label": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/$defs/Attribute"
+                    }
+                  }
+            },
+            "required": [
+                "group_key",
+                "group_label",
                 "attributes"
             ],
             "type": "object"
         },
-        "AttributesOfPACID": {
+        "AttributesOfItem": {
             "properties": {
-                "pac_id": {
+                "id": {
                     "type": "string"
                 },
                 "attribute_groups": {
@@ -77,352 +75,101 @@
                 }
             },
             "required": [
-                "pac_id",
+                "id",
                 "attribute_groups"
             ],
             "type": "object"
         },
-        "BoolAttribute": {
+        "BoolAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
                     "type": "boolean"
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "bool" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "BoolListAttribute": {
+        "DateTimeAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
-                    "items": {
-                        "type": "boolean"
-                    },
-                    "type": "array"
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "format": "date-time",
+                            "type": "string"
+                        }
+                    ]
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "datetime" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "DateTimeAttribute": {
+        "NumericAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
                     "type": "string"
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "numeric" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "DateTimeListAttribute": {
+        "ObjectAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "NumericAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "$ref": "#/$defs/NumericValue"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "NumericListAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "items": {
-                        "$ref": "#/$defs/NumericValue"
-                    },
-                    "type": "array"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "NumericValue": {
-            "properties": {
-                "numerical_value": {
-                    "type": "string"
-                },
-                "unit": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "numerical_value",
-                "unit"
-            ],
-            "type": "object"
-        },
-        "ObjectAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
                     "type": "object"
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "object" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "ObjectListAttribute": {
+        "ReferenceAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
-                    "items": {
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "label": {
                     "type": "string"
                 },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "reference" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "ReferenceAttribute": {
+        "ResourceAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
                     "type": "string"
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "resource" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         },
-        "ReferenceListAttribute": {
+        "TextAttributeItemsElement": {
             "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ResourceAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
                 "value": {
                     "type": "string"
                 },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
+                "type": { "const": "text" }
             },
             "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ResourceListAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "TextAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
-            ],
-            "type": "object"
-        },
-        "TextListAttribute": {
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "label": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "key",
-                "value",
-                "type"
+                "value"
             ],
             "type": "object"
         }
@@ -434,16 +181,22 @@
         "language": {
             "type": "string"
         },
-        "pac_attributes": {
+        "data": {
             "items": {
-                "$ref": "#/$defs/AttributesOfPACID"
+                "$ref": "#/$defs/AttributesOfItem"
             },
             "type": "array"
+        },
+        "@context": {
+            "type": "string",
+            "const": "https://vocab.labfreed.org/attributes/v1.jsonld"
         }
     },
     "required": [
+        "schema_version",
         "language",
-        "pac_attributes"
+        "data",
+        "@context"
     ],
     "type": "object"
 }

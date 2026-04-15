@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "@version": 1.1,
+    
+    "text":      "http://www.w3.org/2001/XMLSchema#string",
+    "bool":      "http://www.w3.org/2001/XMLSchema#boolean",
+    "datetime":  "http://www.w3.org/2001/XMLSchema#dateTime",
+    "reference": "http://www.w3.org/2001/XMLSchema#string",
+    "resource":  "http://www.w3.org/2001/XMLSchema#anyURI",
+    "numeric":   "https://vocab.labfreed.org/attributes/v1.numeric",
+    "object":    "@json",
+    
+    
+    "language": "@language",
+    "schema_version": null,
+
+    "data": "@included",
+    "attr_display_names": "@graph",
+    "attribute_groups": "@nest",
+    "attributes": "@nest",
+    "pac_id": "@id",
+    "id": "@id",
+    "key": "@id",
+    "items": "@set",
+    "value": "@value",
+    "type": "@type",
+    "label": null
+  }
+}
